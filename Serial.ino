@@ -1,4 +1,4 @@
-void menu() {
+void menu() {  // utile pour simuler valeurs pour les tests
   if (Serial.available() > 0) {
     int readchar = Serial.read();
     switch (readchar) {
@@ -52,5 +52,6 @@ void menu() {
     }
     if (Temperature < 0) {
       Temperature = 0;
+    }
   }
 }
