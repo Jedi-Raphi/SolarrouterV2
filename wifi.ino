@@ -3,7 +3,7 @@ void handleRoot() {
   if (server.arg("API_KEY") == api_key) {
     if (server.hasArg("powerPercentage")) {
       String pwrPercStr = server.arg("powerPercentage");
-      if (pwrPercStr.isdigit()) {
+      if (String(pwrPercStr.toFloat()) = pwrPercStr) {
         powerPercentage = pwrPercStr.toFloat();
       }
     }
