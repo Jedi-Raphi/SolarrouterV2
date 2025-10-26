@@ -4,7 +4,7 @@ void handleRoot() {
     if (server.hasArg("powerPercentage")) {
       String pwrPercStr = server.arg("powerPercentage");
       if (pwrPercStr.isdigit()) {
-        powerPercentage = pwrPercStr.tofloat();
+        powerPercentage = pwrPercStr.toFloat();
       }
     }
 
