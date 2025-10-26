@@ -4,6 +4,12 @@ void handleRoot() {
     if (server.hasArg("powerPercentage")) {
       String pwrPercStr = server.arg("powerPercentage");
       powerPercentage = pwrPercStr.toFloat();
+      if (powerPercentage > 100) {
+        powerPercentage = 100;
+      }
+      if (powerPercentage < 0) {
+        powerPercentage = 0;
+      }
       wait_time = powerPercentage_to_wait(powerPercentage);
     }
 
