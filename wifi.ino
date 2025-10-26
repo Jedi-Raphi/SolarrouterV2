@@ -3,10 +3,8 @@ void handleRoot() {
   if (server.arg("API_KEY") == api_key) {
     if (server.hasArg("powerPercentage")) {
       String pwrPercStr = server.arg("powerPercentage");
-      if (String(pwrPercStr.toFloat()) = pwrPercStr) {
-        powerPercentage = pwrPercStr.toFloat();
-        wait_time = powerPercentage_to_wait(powerPercentage);
-      }
+      powerPercentage = pwrPercStr.toFloat();
+      wait_time = powerPercentage_to_wait(powerPercentage);
     }
 
 
