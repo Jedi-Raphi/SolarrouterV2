@@ -4,7 +4,7 @@
 
 WebServer server(80);
 
-
+double Temperature = 0;
 // def des Pin digitaux
 const int Pin_ZC = 21, Pin_Trig = 23;
 // marge Triac
@@ -55,7 +55,7 @@ void setup() {
 }
 //------------Fin int------------//
 
-double percent = 0.0;  //pourcentage de dump au demarrage
+double powerPercentage = 0.0;  //pourcentage de dump au demarrage
 unsigned long last = 0;
 void loop() {
   server.handleClient();
@@ -63,7 +63,7 @@ void loop() {
 }
 
 //math:
-int Percent_to_wait(double pers) {
+int powerPercentage_to_wait(double pers) {
   pers = max(min(pers, 100.0), 0.0);
   return arcos(pers / 50 - 1) / 3.1415 * 10000;
 }
