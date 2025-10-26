@@ -1,17 +1,14 @@
-void handleInfo() {
-  String html = "<!DOCTYPE html><html><head> <meta name=\"color-scheme\" content=\"light dark\" /></head>";
-  html += "<body><p>";
-  html += "{\"powerPercentage\": ";
-  html += powerPercentage;
-  html += ", \"Temperature\": ";
-  html += Temperature;
-  html += "}";
-  html += "</p>";
-  html += "</body></html>";
-  server.send(200, "text/html", html);
-}
+
 void handleRoot() {
   if (server.arg("API_KEY") == api_key) {
+    if (server.hasArg("powerPercentage")) {
+      String pwrPercStr = server.arg("powerPercentage");
+      if (pwrPercStr.isdigit()) {
+        powerPercentage = pwrPercStr.tofloat();
+      }
+    }
+
+
     String html = "<!DOCTYPE html><html><head> <meta name=\"color-scheme\" content=\"light dark\" /></head>";
     html += "<body><p>";
     html += "{\"cod\": 200\", \"powerPercentage\": ";
@@ -52,7 +49,6 @@ void Wifibegin() {
 
 
   server.on("/", handleRoot);
-  server.on("/info", handleInfo);
   server.begin();
   Serial.println("HTTP server started");
 }
