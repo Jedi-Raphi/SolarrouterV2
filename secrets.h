@@ -1,2 +1,2 @@
-#define Secret_ssid "pass";
-#define Secret_password "passwrd";
+#define Secret_ssid "your ssid";
+#define Secret_password "your password";
