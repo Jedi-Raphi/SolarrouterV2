@@ -2,8 +2,6 @@
 #include <WebServer.h>
 #include "secrets.h"
 
-const char* ssid = Secret_ssid;
-const char* password = Secret_password;
 WebServer server(80);
 
 

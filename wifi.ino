@@ -19,7 +19,7 @@ void handleRoot() {
 
 void Wifibegin() {
   WiFi.mode(WIFI_STA);
-  WiFi.begin(ssid, password);
+  WiFi.begin(Secret_ssid, Secret_password);
   Serial.println("\nConnecting to WiFi Network ..");
 
   while (WiFi.status() != WL_CONNECTED) {
