@@ -51,7 +51,6 @@ void setup() {
   timerAttachInterrupt(Timer_Trig_on, &Timer_Trig_on_ISR);  // attacher compteurs aux fonction d'interuption
   timerAttachInterrupt(Timer_Trig_off, &Timer_Trig_off_ISR);
   attachInterrupt(digitalPinToInterrupt(Pin_ZC), zeroCrossing, RISING);
-  //printMenu();
 }
 //------------Fin int------------//
 
