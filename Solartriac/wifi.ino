@@ -12,25 +12,15 @@ void handleRoot() {
       }
       wait_time = powerPercentage_to_wait(powerPercentage);
     }
-
-
-    String html = "<!DOCTYPE html><html><head> <meta name=\"color-scheme\" content=\"light dark\" /></head>";
-    html += "<body><p>";
-    html += "{\"cod\": 200\", \"powerPercentage\": ";
-    html += powerPercentage;
-    html += ", \"Tank_Temperature\": ";
-    html += Temperature;
-    html += "}";
-    html += "</p>";
-    html += "</body></html>";
-    server.send(200, "text/html", html);
+    String returnjson = "{\"cod\": 200, \"powerPercentage\": ";
+    returnjson += powerPercentage;
+    returnjson += ", \"Tank_Temperature\": ";
+    returnjson += Temperature;
+    returnjson += "}";
+    server.send(200, "application/json", returnjson);
   } else {
-    String html = "<!DOCTYPE html><html><head> <meta name=\"color-scheme\" content=\"light dark\" /></head>";
-    html += "<body><p>";
-    html += "{\"cod\": 401\", \"message\": \"invalid api key\"}";
-    html += "</p>";
-    html += "</body></html>";
-    server.send(401, "text/html", html);
+    String returnjson = "{\"cod\": 401, \"message\": \"invalid api key\"}";
+    server.send(401, "application/json", returnjson);
   }
 }
 
