@@ -36,6 +36,10 @@ void menu() {  // utile pour simuler valeurs pour les tests
     }
     Serial.print("Temperature :");
     Serial.println(Temperature);
+    Serial.print("powerPercentage :");
+    Serial.println(powerPercentage);
+    Serial.print("wait_time :");
+    Serial.println(wait_time);
     Serial.println("1 +5");
     Serial.println("2 +1");
     Serial.println("3 +0.5");
