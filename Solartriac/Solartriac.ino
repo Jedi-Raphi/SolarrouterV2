@@ -59,6 +59,16 @@ unsigned long last = 0;
 void loop() {
   server.handleClient();
   menu();
+  for (int i = 0; i < 95; i++) {
+    powerPercentage = i;
+    wait_time = powerPercentage_to_wait(powerPercentage);
+    delay(10);
+  }
+  for (int i = 95; i > 0; i--) {
+    powerPercentage = i;
+    wait_time = powerPercentage_to_wait(powerPercentage);
+    delay(10);
+  }
 }
 
 //math:
