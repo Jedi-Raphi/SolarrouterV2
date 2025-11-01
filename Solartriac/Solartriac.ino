@@ -12,6 +12,8 @@ byte voie = 0;
 double power = 0;
 
 
+double loadpower = 45;
+double target = 0;
 double Temperature = 0;
 // def des Pin digitaux
 const int Pin_ZC = 21, Pin_Trig = 23;
@@ -71,6 +73,10 @@ void loop() {
 
 
 
+
+
+
+/*
   for (int i = 0; i < 100; i++) {
     powerPercentage = i;
     wait_time = powerPercentage_to_wait(powerPercentage);
@@ -80,7 +86,7 @@ void loop() {
     powerPercentage = i;
     wait_time = powerPercentage_to_wait(powerPercentage);
     delay(50);
-  }
+  }*/
 }
 
 //math:
