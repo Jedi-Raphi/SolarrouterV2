@@ -1,6 +1,11 @@
 
 void handleRoot() {
   if (server.arg("API_KEY") == api_key) {
+    if (server.hasArg("target")) {
+      String targetcStr = server.arg("target");
+      target = targetStr.toFloat();
+    }
+    /*
     if (server.hasArg("powerPercentage")) {
       String pwrPercStr = server.arg("powerPercentage");
       powerPercentage = pwrPercStr.toFloat();
@@ -11,9 +16,11 @@ void handleRoot() {
         powerPercentage = 0;
       }
       wait_time = powerPercentage_to_wait(powerPercentage);
-    }
+    }*/
     String returnjson = "{\"cod\": 200, \"powerPercentage\": ";
     returnjson += powerPercentage;
+    returnjson += ", \"target\": ";
+    returnjson += target;
     returnjson += ", \"Tank_Temperature\": ";
     returnjson += Temperature;
     returnjson += "}";
