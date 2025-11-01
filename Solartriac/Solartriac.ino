@@ -1,8 +1,16 @@
 #include <WiFi.h>
 #include <WebServer.h>
+#include <HTTPClient.h>
 #include "secrets.h"
+#include <ArduinoJson.h>
 
 WebServer server(80);
+//HTTPClient http;
+
+const char* Shelly_addr = "192.168.68.150";
+byte voie = 0;
+double power = 0;
+
 
 double Temperature = 0;
 // def des Pin digitaux
@@ -16,7 +24,7 @@ hw_timer_t* Timer_Trig_off = NULL;  //creation compteur pour l'extinction
 void IRAM_ATTR Timer_Trig_on_ISR() {
   digitalWrite(Pin_Trig, HIGH);                // allumer trig
   timerRestart(Timer_Trig_off);                // preparer compteur pour l'extinction
-  timerAlarm(Timer_Trig_off, 1000, false, 3);  // eteindre apres 1 000 cycles : 1000 / 10 MHz = 100us
+  timerAlarm(Timer_Trig_off, 1000, false, 3);  // eteindre apres 1 000 cycles : 1000 / 10 MHz = 100us added a 0
 }
 void IRAM_ATTR Timer_Trig_off_ISR() {
   digitalWrite(Pin_Trig, LOW);  // allumer trig
@@ -59,15 +67,19 @@ unsigned long last = 0;
 void loop() {
   server.handleClient();
   menu();
-  for (int i = 0; i < 95; i++) {
+  shelly_update();
+
+
+
+  for (int i = 0; i < 100; i++) {
     powerPercentage = i;
     wait_time = powerPercentage_to_wait(powerPercentage);
-    delay(10);
+    delay(50);
   }
-  for (int i = 95; i > 0; i--) {
+  for (int i = 100; i > 0; i--) {
     powerPercentage = i;
     wait_time = powerPercentage_to_wait(powerPercentage);
-    delay(10);
+    delay(50);
   }
 }
 
