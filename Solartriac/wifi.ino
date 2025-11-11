@@ -2,7 +2,7 @@
 void handleRoot() {
   if (server.arg("API_KEY") == api_key) {
     if (server.hasArg("target")) {
-      String targetcStr = server.arg("target");
+      String targetStr = server.arg("target");
       target = targetStr.toFloat();
     }
     /*

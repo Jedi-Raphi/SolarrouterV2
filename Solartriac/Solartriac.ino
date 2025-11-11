@@ -7,16 +7,16 @@
 WebServer server(80);
 //HTTPClient http;
 
-const char* Shelly_addr = "192.168.68.150";
+const char* Shelly_addr = "192.168.68.109";
 byte voie = 0;
 double power = 0;
+#define pi 3.1416
 
-
-double loadpower = 45;
+double loadpower = 2000;
 double target = 0;
 double Temperature = 0;
 // def des Pin digitaux
-const int Pin_ZC = 21, Pin_Trig = 23;
+const int Pin_ZC = 6, Pin_Trig = 7;
 // marge Triac
 const int marge_min = 400, marge_max = 10000 - 400;  // marge pour le declenchement du triac en us
 //------------Interuptions------------//
@@ -51,6 +51,8 @@ void IRAM_ATTR zeroCrossing() {
 
 //------------int------------//
 void setup() {
+  pinMode(48, OUTPUT);
+  digitalWrite(48, LOW);
   Serial.begin(115200);  //debuter la com série
   pinMode(Pin_Trig, OUTPUT);
   pinMode(Pin_ZC, INPUT_PULLUP);
@@ -67,9 +69,80 @@ void setup() {
 double powerPercentage = 0.0;  //pourcentage de dump au demarrage
 unsigned long last = 0;
 void loop() {
-  server.handleClient();
-  menu();
-  shelly_update();
+
+
+//  for (int i = 0; i < 200; i++) {
+    server.handleClient();
+    delay(150); //80
+ // }
+  //menu();
+  target_serial();
+  //shelly_update();
+  /*
+  powerPercentage = powerPercentage + (((target - power) / loadpower) * 17);
+  if (powerPercentage > 100) {
+    powerPercentage = 100;
+  }
+  if (powerPercentage < 0) {
+    powerPercentage = 0;
+  }
+  wait_time = powerPercentage_to_wait(powerPercentage);
+  */
+  show_data();
+
+
+  
+  for (int i = 0; i < 100; i++) {
+    powerPercentage = i;
+    wait_time = powerPercentage_to_wait(powerPercentage);
+    delay(500);
+  }
+  for (int i = 100; i > 0; i--) {
+    powerPercentage = i;
+    wait_time = powerPercentage_to_wait(powerPercentage);
+    delay(500);
+  }
+}
+
+
+
+
+
+
+
+//Math
+float precision = 0.000005;
+
+int powerPercentage_to_wait(float Pwr_Percentage) {
+  Pwr_Percentage = Pwr_Percentage / 100; // decale power percenta
+  //cycle_count = 0;
+  float bornes[2] = { 0, pi };
+  unsigned long calcTimeout = millis();
+  while (millis() - calcTimeout < 5000) {
+    float p_test = (bornes[1] + bornes[0]) / 2;
+    float Pwr_Percentage_test = integrale_sin2_from_p_to_pi(p_test);
+    //cycle_count += 1;
+    if (Pwr_Percentage_test <= Pwr_Percentage + precision && Pwr_Percentage_test >= Pwr_Percentage - precision) {
+      return p_test / pi * 10000;
+    }
+    if (Pwr_Percentage_test < Pwr_Percentage) {
+      bornes[1] = p_test;
+    } else if (Pwr_Percentage_test > Pwr_Percentage) {
+      bornes[0] = p_test;
+    }
+  }
+  return 0;
+}
+
+float integrale_sin2_from_p_to_pi(float p) {
+  float Normalized_Pwr = 1 - (2 * p - sin(2 * p)) / (2 * pi);
+  return Normalized_Pwr;
+}
+
+
+
+
+
 
 
 
@@ -77,18 +150,6 @@ void loop() {
 
 
 /*
-  for (int i = 0; i < 100; i++) {
-    powerPercentage = i;
-    wait_time = powerPercentage_to_wait(powerPercentage);
-    delay(50);
-  }
-  for (int i = 100; i > 0; i--) {
-    powerPercentage = i;
-    wait_time = powerPercentage_to_wait(powerPercentage);
-    delay(50);
-  }*/
-}
-
 //math:
 int powerPercentage_to_wait(double pers) {
   pers = max(min(pers, 100.0), 0.0);
@@ -107,4 +168,4 @@ float arcos(float x) {
   ret *= sqrt(1.0 - x);
   ret = ret - 2.0 * negate * ret;
   return negate * 3.14159265358979 + ret;
-}
+}*/

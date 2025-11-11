@@ -30,7 +30,7 @@ void shelly_update() {
       }
 
       String Shelly_data = response.substring(response.indexOf("{"));
-      Serial.println(Shelly_data);
+      //Serial.println(Shelly_data);
       client.stop();
       if (Shelly_data.indexOf("true") > 0) {
         JsonDocument doc;

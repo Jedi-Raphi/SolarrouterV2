@@ -1,3 +1,15 @@
+void target_serial() {
+  if (Serial.available() > 0) {
+    String targetStr = "";
+    while (Serial.available()) {
+      char character = Serial.read();
+      targetStr += String(character);
+    }
+    target = targetStr.toFloat();
+  }
+}
+
+
 void menu() {  // utile pour simuler valeurs pour les tests
   if (Serial.available() > 0) {
     int readchar = Serial.read();
@@ -58,4 +70,33 @@ void menu() {  // utile pour simuler valeurs pour les tests
       Temperature = 0;
     }
   }
+}
+
+unsigned long tim = 0;
+unsigned long cycle = 0;
+void show_data() {
+
+
+  cycle = millis() - tim;
+  tim = millis();
+  Serial.print("power:");
+  Serial.print(power);
+  Serial.print("\t");
+  Serial.print("Tpower:");
+  Serial.print(target);
+  Serial.print("\t");
+  Serial.print("powerPercentage:");
+  Serial.print(powerPercentage);
+  Serial.print("\t");
+  Serial.print("cycle:");
+  Serial.print(cycle);
+  Serial.print("\t");
+  Serial.print("0:");
+  Serial.print(0);
+  Serial.print("\t");
+  Serial.print("45:");
+  Serial.print(45);
+  Serial.print("\t");
+  Serial.print("100:");
+  Serial.println(100);
 }
